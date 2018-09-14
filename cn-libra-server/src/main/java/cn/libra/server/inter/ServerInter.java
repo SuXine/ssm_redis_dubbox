@@ -1,0 +1,7 @@
+package cn.libra.server.inter;
+
+import com.alibaba.fastjson.JSONObject;
+
+public interface ServerInter {
+    public JSONObject callServer(String serviceName,String methodName,JSONObject params) throws Exception;
+}

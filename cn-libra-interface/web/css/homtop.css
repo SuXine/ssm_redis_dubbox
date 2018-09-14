@@ -1,0 +1,29 @@
+ .ic_header{height:111px;overflow:hidden;}
+.ic_layout{width:1182px;}
+.ic_layout h1{padding-top: 12px;}
+.ic_header h1 img{height:87px;}
+.ic_header .acla_data_time{float:right;}
+.ic_header .acla_data_time p{font-size:14px;text-align:center;color:#444;display:inline-block;line-height:111px;}
+.ic_header .acla_data_time .acla_data_dian{display:inline-block;}
+.ic_header .acla_data_time a{display:inline-block;margin:0 5px;color:#444;font-size:14px;line-height:111px;}
+.top-images{cursor: pointer;}
+
+
+
+.acla_dowelist{width:1182px;margin:0 auto;height:40px;line-height:40px;}
+.acla_dowelist .acla_dowe-title{float:left;width:132px;display:inline-block;font-size:14px;color:#4a4a4a;}
+.acla_dowelist .acla_dowe-title img{display:inline-block;margin-right:15px;}
+#acla_dowebok{width:1050px;margin:0 auto;position:relative;overflow:hidden;display:inline-block;}
+#acla_dowebok .str_move{ white-space:nowrap;position:absolute; top:0; left:0;cursor:move;}
+#acla_dowebok  li{color:#4a4a4a;margin:0 5px;display:inline-block;}
+#acla_dowebok  a{margin:0 15px;}
+
+
+/* .top-swi-img{height:446px;} */
+.top-swi-img{min-width:1182px}
+.acla-pagination{  position: absolute; width: 100%;bottom: 10px; height: 40px;text-align: center;}
+.acla-pagination .swiper-pagination-switch{ cursor: pointer; display: inline-block; background: rgba(255,255,255,0.5); width: 12px; height: 12px;border-radius:50%;margin: 0 6px;}
+.acla-pagination .swiper-pagination-switch.swiper-active-switch{background:#949494}
+
+
+

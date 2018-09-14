@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://code.alibabatech.com/schema/dubbo
+            http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+    <!-- 提供方应用信息，用于计算依赖关系  -->
+    <dubbo:application name="cn-libra-interface" />
+    <!-- 使用zookeeper注册中心暴露服务地址   -->
+    <dubbo:registry address="zookeeper://111.231.197.165:2081"/>
+    <!-- 用dubbo协议在20880端口暴露服务 -->
+    <dubbo:protocol name="rest" port="8021" threads="500" contextpath="" server="tomcat" accepts="500"/>
+    <dubbo:service interface="cn.libra.inter.controller.DubboCotroller" ref="libraController" protocol="rest"/>
+    <bean id="libraController" class="cn.libra.inter.controller.LibraController"/>
+
+    <!--dubbo发布服务  配置信息表-->
+
+    <dubbo:reference id="serverInter" interface="cn.libra.server.inter.ServerInter" check="false"/>
+    <dubbo:reference id="userInter" interface="cn.libra.user.inter.UserInter" check="false"/>
+
+
+</beans>
