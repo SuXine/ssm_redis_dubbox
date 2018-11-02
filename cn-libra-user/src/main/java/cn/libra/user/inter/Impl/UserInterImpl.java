@@ -1,7 +1,6 @@
 package cn.libra.user.inter.Impl;
 
 import cn.libra.user.inter.UserInter;
-import cn.libra.user.service.MenuService;
 import cn.libra.user.service.UserService;
 import cn.libra.user.service.callServeice.Provide;
 import cn.libra.utils.util.exception.ControllerException;
@@ -15,7 +14,6 @@ import java.lang.reflect.Method;
 public class UserInterImpl implements UserInter {
     @Autowired
     UserService userService;
-    @Autowired MenuService menuService;
     @Autowired Provide provide;
 
     public JSONObject callServer(String serviceName, String methodName, JSONObject params) throws Exception {
@@ -35,12 +33,7 @@ public class UserInterImpl implements UserInter {
                     methodResult = method.invoke(userService, params);
                     break;
             }
-            case "menu": {
-                Method method = null;
-                method = menuService.getClass().getMethod(methodName, JSONObject.class);
-                methodResult = method.invoke(menuService, params);
-                break;
-            }
+            
 
                 default:
                     throw new ControllerException("不存在名字为【" + serviceName + "】的service");
