@@ -1,9 +1,6 @@
 package cn.libra.inter.controller;
 
 import cn.libra.inter.service.LibraService;
-import cn.libra.utils.util.IPUtil;
-import cn.libra.utils.util.StringUtil;
-import cn.libra.utils.util.exception.ControllerException;
 import cn.libra.utils.util.redis.RedisUtil;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +40,8 @@ public class LibraController implements DubboCotroller {
         String type = params.getString("userType");
 
         String controllerPath = childrenName + "_" + serviceName + "_" + methodName;
+
+
         JSONObject jsonObject = makeSuccessJson(params, childrenName, serviceName, methodName, controllerPath);
         String s = jsonObject.toString();
 
@@ -51,6 +50,7 @@ public class LibraController implements DubboCotroller {
 
     private JSONObject makeSuccessJson(JSONObject paramsStr, String childrenName, String serviceName, String methodName, String controllerPath) throws Exception {
         JSONObject requestJson = libraService.callChildren(childrenName, serviceName, methodName, paramsStr);
+
 
         requestJson.put("controllerPath", controllerPath);
         return requestJson;
@@ -66,6 +66,9 @@ public class LibraController implements DubboCotroller {
         }
         return paramsStr;
     }
+
+
+
 
 
 }
