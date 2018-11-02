@@ -65,10 +65,12 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <!--加载配置文件-->
+    <!-- 将多个配置文件读取到容器中，交给Spring管理 -->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
+                <!-- 这里支持多种寻址方式：classpath和file -->
+                <value>classpath*:dubbo.properties</value>
                 <value>classpath*:jdbc.properties</value>
                 <value>classpath*:redis.properties</value>
             </list>
@@ -88,7 +90,7 @@
           p:host-name="${redis.host}" p:port="${redis.port}" p:password="${redis.password}"
           p:pool-config-ref="poolConfig" />
     <!-- 使用中间类解决RedisCache.jedisConnectionFactory的静态注入，从而使MyBatis实现第三方缓存 -->
-    <bean id="redisCacheTransfer" class="cn.libra.user.util.redis.RedisCacheTransfer">
+    <bean id="redisCacheTransfer" class="cn.libra.utils.util.redis.RedisCacheTransfer">
         <property name="jedisConnectionFactory" ref="jedisConnectionFactory" />
     </bean>
 
@@ -101,7 +103,7 @@
             <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
         </property>
     </bean>
-    <bean id="redisUtil" class="cn.libra.user.util.redis.RedisUtil">
+    <bean id="redisUtil" class="cn.libra.utils.util.redis.RedisUtil">
         <property name="redisTemplate" ref="redisTemplate" />
     </bean>
 

@@ -28,8 +28,10 @@
     <module>cn-libra-server</module>
     <module>cn-libra-interface</module>
       <module>cn-libra-user</module>
+      <module>cn-libra-utils</module>
   </modules>
   <dependencies>
+
 <!--mybatis三剑客-->
     <dependency>
       <groupId>org.mybatis.generator</groupId>
@@ -46,6 +48,16 @@
           <groupId>com.github.miemiedev</groupId>
           <artifactId>mybatis-paginator</artifactId>
           <version>1.2.17</version>
+          <exclusions>
+              <exclusion>
+                  <artifactId>mybatis</artifactId>
+                  <groupId>org.mybatis</groupId>
+              </exclusion>
+              <exclusion>
+                  <artifactId>slf4j-api</artifactId>
+                  <groupId>org.slf4j</groupId>
+              </exclusion>
+          </exclusions>
       </dependency>
 
       <dependency>
@@ -60,6 +72,12 @@
       <groupId>com.rosegun</groupId>
       <artifactId>mybatis-generator-pagination</artifactId>
       <version>1.0.1</version>
+        <exclusions>
+            <exclusion>
+                <artifactId>mybatis-generator-core</artifactId>
+                <groupId>org.mybatis.generator</groupId>
+            </exclusion>
+        </exclusions>
     </dependency>
 
     <!--日志相关-->
@@ -175,6 +193,28 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc-portlet</artifactId>
       <version>4.3.18.RELEASE</version>
+        <exclusions>
+            <exclusion>
+                <artifactId>spring-beans</artifactId>
+                <groupId>org.springframework</groupId>
+            </exclusion>
+            <exclusion>
+                <artifactId>spring-context</artifactId>
+                <groupId>org.springframework</groupId>
+            </exclusion>
+            <exclusion>
+                <artifactId>spring-core</artifactId>
+                <groupId>org.springframework</groupId>
+            </exclusion>
+            <exclusion>
+                <artifactId>spring-web</artifactId>
+                <groupId>org.springframework</groupId>
+            </exclusion>
+            <exclusion>
+                <artifactId>spring-webmvc</artifactId>
+                <groupId>org.springframework</groupId>
+            </exclusion>
+        </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
@@ -217,6 +257,12 @@
       <groupId>commons-configuration</groupId>
       <artifactId>commons-configuration</artifactId>
       <version>1.10</version>
+        <exclusions>
+            <exclusion>
+                <artifactId>commons-logging</artifactId>
+                <groupId>commons-logging</groupId>
+            </exclusion>
+        </exclusions>
     </dependency>
     <dependency>
       <groupId>commons-fileupload</groupId>
@@ -283,18 +329,62 @@
       <groupId>redis.clients</groupId>
       <artifactId>jedis</artifactId>
       <version>2.9.0</version>
+        <exclusions>
+            <exclusion>
+                <artifactId>commons-pool2</artifactId>
+                <groupId>org.apache.commons</groupId>
+            </exclusion>
+        </exclusions>
     </dependency>
-    <!-- dubbo相关 -->
+      <!--邮件相关-->
+      <dependency>
+          <groupId>javax.mail</groupId>
+          <artifactId>javax.mail-api</artifactId>
+          <version>1.6.2</version>
+      </dependency>
+      <dependency>
+          <groupId>com.sun.mail</groupId>
+          <artifactId>javax.mail</artifactId>
+          <version>1.6.2</version>
+      </dependency>
+
+      <!-- dubbo相关 -->
 
     <dependency>
       <groupId>org.apache.zookeeper</groupId>
       <artifactId>zookeeper</artifactId>
       <version>${zookeeper.version}</version>
+        <exclusions>
+            <!--  排除log4j1的方式  -->
+            <exclusion>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+            </exclusion>
+            <!--  排除logback的方式  -->
+            <exclusion>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+            </exclusion>
+            <exclusion>
+                <artifactId>slf4j-api</artifactId>
+                <groupId>org.slf4j</groupId>
+            </exclusion>
+        </exclusions>
     </dependency>
     <dependency>
       <groupId>com.github.sgroschupf</groupId>
       <artifactId>zkclient</artifactId>
       <version>${zkclient.version}</version>
+        <exclusions>
+            <exclusion>
+                <artifactId>log4j</artifactId>
+                <groupId>log4j</groupId>
+            </exclusion>
+            <exclusion>
+                <artifactId>zookeeper</artifactId>
+                <groupId>org.apache.zookeeper</groupId>
+            </exclusion>
+        </exclusions>
     </dependency>
 
     <dependency>
@@ -335,11 +425,23 @@
       <groupId>net.sf.ezmorph</groupId>
       <artifactId>ezmorph</artifactId>
       <version>1.0.6</version>
+        <exclusions>
+            <exclusion>
+                <artifactId>commons-lang</artifactId>
+                <groupId>commons-lang</groupId>
+            </exclusion>
+        </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
       <version>4.5.6</version>
+        <exclusions>
+            <exclusion>
+                <artifactId>commons-codec</artifactId>
+                <groupId>commons-codec</groupId>
+            </exclusion>
+        </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
@@ -366,6 +468,12 @@
       <groupId>ognl</groupId>
       <artifactId>ognl</artifactId>
       <version>3.2.6</version>
+        <exclusions>
+            <exclusion>
+                <artifactId>javassist</artifactId>
+                <groupId>org.javassist</groupId>
+            </exclusion>
+        </exclusions>
     </dependency>
     <dependency>
       <groupId>com.belerweb</groupId>
@@ -373,20 +481,26 @@
       <version>2.5.1</version>
     </dependency>
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-      <version>2.5</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-core</artifactId>
       <version>1.4.0</version>
+        <exclusions>
+            <exclusion>
+                <artifactId>slf4j-api</artifactId>
+                <groupId>org.slf4j</groupId>
+            </exclusion>
+        </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-ehcache</artifactId>
       <version>1.4.0</version>
+        <exclusions>
+            <exclusion>
+                <artifactId>slf4j-api</artifactId>
+                <groupId>org.slf4j</groupId>
+            </exclusion>
+        </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.shiro</groupId>
@@ -403,6 +517,20 @@
       <groupId>org.thymeleaf</groupId>
       <artifactId>thymeleaf</artifactId>
       <version>3.0.9.RELEASE</version>
+        <exclusions>
+            <exclusion>
+                <artifactId>ognl</artifactId>
+                <groupId>ognl</groupId>
+            </exclusion>
+            <exclusion>
+                <artifactId>attoparser</artifactId>
+                <groupId>org.attoparser</groupId>
+            </exclusion>
+            <exclusion>
+                <artifactId>unbescape</artifactId>
+                <groupId>org.unbescape</groupId>
+            </exclusion>
+        </exclusions>
     </dependency>
     <dependency>
       <groupId>org.unbescape</groupId>
@@ -415,6 +543,24 @@
       <artifactId>json-lib</artifactId>
       <version>2.4</version>
       <classifier>jdk15</classifier>
+        <exclusions>
+            <exclusion>
+                <artifactId>commons-beanutils</artifactId>
+                <groupId>commons-beanutils</groupId>
+            </exclusion>
+            <exclusion>
+                <artifactId>commons-collections</artifactId>
+                <groupId>commons-collections</groupId>
+            </exclusion>
+            <exclusion>
+                <artifactId>commons-lang</artifactId>
+                <groupId>commons-lang</groupId>
+            </exclusion>
+            <exclusion>
+                <artifactId>commons-logging</artifactId>
+                <groupId>commons-logging</groupId>
+            </exclusion>
+        </exclusions>
     </dependency>
     <dependency>
       <groupId>gnu.getopt</groupId>
@@ -430,6 +576,12 @@
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
       <version>4.5.6</version>
+        <exclusions>
+            <exclusion>
+                <artifactId>commons-codec</artifactId>
+                <groupId>commons-codec</groupId>
+            </exclusion>
+        </exclusions>
     </dependency>
     <dependency>
       <groupId>javax.servlet.jsp.jstl</groupId>

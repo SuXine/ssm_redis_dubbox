@@ -67,10 +67,10 @@
         </javaClientGenerator>
 
 
-        <table tableName="s_course"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
+        <table tableName="consult"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true"></table>
 
     </context>
 </generatorConfiguration>

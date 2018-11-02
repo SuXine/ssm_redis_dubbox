@@ -1,38 +1,58 @@
 package cn.libra.server.inter.Impl;
 
-import cn.libra.server.service.UserService;
-import cn.libra.server.util.exception.ControllerException;
 import cn.libra.server.inter.ServerInter;
+import cn.libra.server.service.ConsultService;
+import cn.libra.server.service.callServeice.Provide;
+import cn.libra.utils.util.exception.ControllerException;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-@Controller
-public class ServerInterImpl implements ServerInter {
+@Controller public class ServerInterImpl implements ServerInter {
 
-    @Autowired
-    UserService userService;
+	@Autowired ConsultService consultService;
+	@Autowired Provide provide;
 
-    public JSONObject callServer(String serviceName, String methodName, JSONObject params) throws Exception {
-        Class jsonClass = Class.forName("com.alibaba.fastjson.JSONObject");
-        Object methodResult = null;
+	public JSONObject callServer(String serviceName, String methodName, JSONObject params) throws ControllerException {
+		Object methodResult = null;
+		try {
+			switch (serviceName) {
+			case "provide": {
+				Method method = null;
+				method = provide.getClass().getMethod(methodName, JSONObject.class);
+				methodResult = method.invoke(provide, params);
+				break;
+			}
+			case "consult": {
+				Method method = consultService.getClass().getMethod(methodName, JSONObject.class);
+				methodResult = method.invoke(consultService, params);
+				break;
+			}
+			default:
+				throw new ControllerException("不存在名字为【" + serviceName + "】的service");
+			}
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return makeReturnJson(methodResult, serviceName, methodName);
+	}
 
-        switch (serviceName){
-            case "user":{
-                Method method = userService.getClass().getMethod(methodName, jsonClass);
-                methodResult = method.invoke(userService, params);
-                return makeReturnJson(methodResult, serviceName, methodName);
-            }
-            default : throw  new ControllerException("不存在名字为【"+serviceName+"】的service");
-        }
-    }
+	private JSONObject makeReturnJson(Object data, String serviceName, String methodName) {
+		JSONObject json = new JSONObject();
+		JSONObject error = new JSONObject();
 
-    private JSONObject makeReturnJson(Object data,String serviceName,String methodName){
-        JSONObject json = new JSONObject();
-        json.put("controller",serviceName+"_"+methodName);
-        json.put("data",data);
-        return json;
-    }
+		error.put("code","200");
+		error.put("mess","SUCCESS");
+
+		json.put("data", data);
+		json.put("error",error);
+		return json;
+	}
 }

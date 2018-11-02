@@ -5,17 +5,18 @@
             http://www.springframework.org/schema/beans/spring-beans.xsd
             http://code.alibabatech.com/schema/dubbo
             http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+
     <!-- 提供方应用信息，用于计算依赖关系  -->
     <dubbo:application name="cn-libra-server" />
     <!-- 使用zookeeper注册中心暴露服务地址   -->
-    <dubbo:registry address="zookeeper://111.231.197.165:2081"/>
+    <dubbo:registry address="${dubbo.zookeeper.add}"/>
     <!-- 用dubbo协议在20880端口暴露服务 -->
     <dubbo:protocol name="dubbo" port="8020" />
     <!-- dubbo发布服务  配置信息表 -->
-    <!--<dubbo:reference id="userService2" interface="cn.libra.service.UserService2" check="false"/>-->
-
     <dubbo:service interface="cn.libra.server.inter.ServerInter" ref="serverInter"/>
-
     <bean id="serverInter" class="cn.libra.server.inter.Impl.ServerInterImpl"/>
+
+    <dubbo:reference id="userInter" interface="cn.libra.user.inter.UserInter" check="false"/>
 
 </beans>

@@ -68,10 +68,11 @@
         </javaClientGenerator>
 
 
-        <table tableName="Consult"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false"></table>
+        <table tableName="menu"
+               enableCountByExample="true" enableUpdateByExample="true"
+               enableDeleteByExample="true" enableSelectByExample="true"
+               selectByExampleQueryId="true"></table>
+
 
     </context>
 </generatorConfiguration>
